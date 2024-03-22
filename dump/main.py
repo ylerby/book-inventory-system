@@ -47,14 +47,13 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
         return final_json
 
-    
     def send_dump(self):
         self.send_response(200)
         self.send_header("Content-type", "application/json")
         self.end_headers()
 
         data = self.read_and_process_data()
-        
+
         self.wfile.write(json.dumps(data).encode())
 
 
