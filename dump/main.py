@@ -5,7 +5,6 @@ import pandas as pd
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
     def read_and_process_data(self):
-        # Чтение данных из файлов pickle
         books = pd.read_pickle("books.pkl")
         instances = pd.read_pickle("instances.pkl")
         admins = pd.read_pickle("admins.pkl")
