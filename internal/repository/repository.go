@@ -79,10 +79,12 @@ func (r *Repository) TakeBook(id int) (*domain.BookMapField, error) {
 		return nil, fmt.Errorf("instance not found")
 	}
 
+	isFound := false
 	switch instance.Status {
 	case inLibrary:
 		for bookID := range r.books {
 			if instance.BookID == bookID {
+				isFound = true
 				book := r.books[bookID]
 				instance.Status = inUse
 				r.instance[id] = instance
@@ -91,6 +93,10 @@ func (r *Repository) TakeBook(id int) (*domain.BookMapField, error) {
 		}
 	default:
 		return nil, fmt.Errorf("you can`t take an instance")
+	}
+
+	if !isFound {
+		return nil, fmt.Errorf("instance not found")
 	}
 
 	return nil, nil
@@ -105,18 +111,21 @@ func (r *Repository) UpdateLoginStatus(id int, status string) error {
 		return fmt.Errorf("user not found")
 	}
 
-	user.LoginStatus = status
-	r.user[id] = user
+	if user.LoginStatus != status {
+		user.LoginStatus = status
+		r.user[id] = user
+	} else {
+		return fmt.Errorf("already %s", status)
+	}
 
 	return nil
 }
-
-//todo: black list(map[int]struct{})
 
 func (r *Repository) BanUser(userID, adminID int) error {
 	r.mu.Lock()
 	defer r.mu.Unlock()
 
+	fmt.Println(r.user)
 	_, ok := r.admins[adminID]
 	if !ok {
 		return fmt.Errorf("invalid admin id")
@@ -143,6 +152,14 @@ func (r *Repository) UpdateInstanceStatus(instanceID, status int) error {
 	instance, ok := r.instance[instanceID]
 	if !ok {
 		return fmt.Errorf("instance not found")
+	}
+
+	if status < 0 || status > 3 {
+		return fmt.Errorf("invalid status")
+	}
+
+	if status == instance.Status {
+		return fmt.Errorf("already in status")
 	}
 
 	instance.Status = status

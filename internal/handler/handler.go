@@ -35,13 +35,14 @@ func New(l logger.Logger, s service) *Handler {
 
 func (h *Handler) InitRoutes(address string, ch chan error) {
 	router := gin.Default()
-	router.POST("/", h.main)
+	router.GET("/", h.main)
 	router.GET("/return_book", h.returnBook)
 	router.GET("/take_book", h.takeBook)
 	router.GET("/update_login_status", h.updateLoginStatus)
 	router.GET("/ban_user", h.banUser)
 	router.GET("/update_instance_status", h.updateInstanceStatus)
 	router.GET("/check_availability", h.checkAvailability)
+	router.GET("/count_published_books", h.countPublishedBooks)
 	router.GET("/check_borrow_books", h.checkBorrowBooks)
 
 	err := router.Run(address)
@@ -52,7 +53,7 @@ func (h *Handler) InitRoutes(address string, ch chan error) {
 }
 
 func (h *Handler) main(ctx *gin.Context) {
-	_, err := ctx.Writer.Write([]byte("main page"))
+	_, err := ctx.Writer.Write([]byte("root handler"))
 	if err != nil {
 		h.l.Errorf("response error: %v", err)
 		return
@@ -134,6 +135,7 @@ func (h *Handler) takeBook(ctx *gin.Context) {
 	}
 
 	ctx.Status(http.StatusOK)
+	ctx.Header("content-type", "application/json")
 	_, err = ctx.Writer.Write(response)
 	if err != nil {
 		h.l.Errorf("response error: %v", err)
@@ -273,6 +275,41 @@ func (h *Handler) updateInstanceStatus(ctx *gin.Context) {
 	}
 }
 
+func (h *Handler) countPublishedBooks(ctx *gin.Context) {
+	authorID := ctx.Query("author_id")
+
+	intAuthorID, err := strconv.Atoi(authorID)
+	if err != nil {
+		ctx.Status(http.StatusInternalServerError)
+		_, err = ctx.Writer.Write([]byte("internal server error"))
+		if err != nil {
+			h.l.Errorf("response error: %v", err)
+			return
+		}
+
+		return
+	}
+
+	publishedBooks, err := h.s.CountPublishedBooks(intAuthorID)
+	if err != nil {
+		ctx.Status(http.StatusInternalServerError)
+		_, err = ctx.Writer.Write([]byte(fmt.Sprintf("internal server error: %v", err)))
+		if err != nil {
+			h.l.Errorf("response error: %v", err)
+			return
+		}
+
+		return
+	}
+
+	ctx.Status(http.StatusOK)
+	_, err = ctx.Writer.Write([]byte(fmt.Sprintf("published books: %d", publishedBooks)))
+	if err != nil {
+		h.l.Errorf("response error: %v", err)
+		return
+	}
+}
+
 func (h *Handler) checkAvailability(ctx *gin.Context) {
 	instanceID := ctx.Query("instance_id")
 
@@ -348,6 +385,7 @@ func (h *Handler) checkBorrowBooks(ctx *gin.Context) {
 	}
 
 	ctx.Status(http.StatusOK)
+	ctx.Header("content-type", "application/json")
 	_, err = ctx.Writer.Write(response)
 	if err != nil {
 		h.l.Errorf("response error: %v", err)
