@@ -1,0 +1,16 @@
+{
+  "admins": [
+    {
+      "admin_id": 123
+    },
+    {
+      "admin_id": 456
+    },
+    {
+      "admin_id": 543
+    },
+    {
+      "admin_id": 942
+    }
+  ]
+}

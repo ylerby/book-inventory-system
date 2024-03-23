@@ -1,0 +1,82 @@
+{
+  "readers": [
+    {
+      "reader_id": 421,
+      "instance_id": [
+        1,
+        2
+      ]
+    },
+    {
+      "reader_id": 932,
+      "instance_id": [
+        3,
+        4
+      ]
+    },
+    {
+      "reader_id": 101,
+      "instance_id": [
+        5,
+        6
+      ]
+    },
+    {
+      "reader_id": 303,
+      "instance_id": []
+    },
+    {
+      "reader_id": 404,
+      "instance_id": [
+        7
+      ]
+    },
+    {
+      "reader_id": 505,
+      "instance_id": [
+        8,
+        9,
+        10
+      ]
+    },
+    {
+      "reader_id": 606,
+      "instance_id": [
+        11
+      ]
+    },
+    {
+      "reader_id": 707,
+      "instance_id": []
+    },
+    {
+      "reader_id": 808,
+      "instance_id": [
+        12,
+        13
+      ]
+    },
+    {
+      "reader_id": 909,
+      "instance_id": [
+        14
+      ]
+    },
+    {
+      "reader_id": 111,
+      "instance_id": [
+        15
+      ]
+    },
+    {
+      "reader_id": 222,
+      "instance_id": [
+        16
+      ]
+    },
+    {
+      "reader_id": 333,
+      "instance_id": []
+    }
+  ]
+}

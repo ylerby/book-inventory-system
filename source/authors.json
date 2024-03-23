@@ -1,0 +1,53 @@
+{
+  "authors": [
+    {
+      "author_id": 1,
+      "name": "Иван",
+      "surname": "Сергеев",
+      "patronymic": "Алексеевич",
+      "production_id": 1
+    },
+    {
+      "author_id": 2,
+      "name": "Елена",
+      "surname": "Иванова",
+      "patronymic": "Петровна",
+      "production_id": 1
+    },
+    {
+      "author_id": 3,
+      "name": "Александр",
+      "surname": "Козлов",
+      "patronymic": "Игоревич",
+      "production_id": 1
+    },
+    {
+      "author_id": 4,
+      "name": "Мария",
+      "surname": "Смирнова",
+      "patronymic": "Андреевна",
+      "production_id": 2
+    },
+    {
+      "author_id": 5,
+      "name": "Дмитрий",
+      "surname": "Павлов",
+      "patronymic": "Николаевич",
+      "production_id": 2
+    },
+    {
+      "author_id": 6,
+      "name": "Наталья",
+      "surname": "Краснова",
+      "patronymic": "Сергеевна",
+      "production_id": 3
+    },
+    {
+      "author_id": 7,
+      "name": "Петр",
+      "surname": "Максимов",
+      "patronymic": "Олегович",
+      "production_id": 3
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "productions": [
+    {
+      "production_id": 1,
+      "name": "Речь"
+    },
+    {
+      "production_id": 2,
+      "name": "Время"
+    },
+    {
+      "production_id": 3,
+      "name": "Просвещение"
+    }
+  ]
+}
